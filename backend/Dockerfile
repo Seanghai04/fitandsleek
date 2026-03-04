@@ -1,4 +1,3 @@
-
 # ប្រើ PHP 8.2 ជាមួយ Apache
 FROM php:8.2-apache
 
@@ -11,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     unzip \
     libpq-dev \
-    && docker-php-ext-configure medical --with-freetype --with-jpeg \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_pgsql pgsql zip gd
 
 # បើក Apache mod_rewrite សម្រាប់ Laravel
@@ -31,7 +30,7 @@ RUN composer install --no-dev --optimize-autoloader
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# កំណត់ Port សម្រាប់ Apache (Render ប្រើ Port 80 ឬ $PORT)
+# កំណត់ Port សម្រាប់ Apache
 ENV PORT=80
 EXPOSE 80
 
